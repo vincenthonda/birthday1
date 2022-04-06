@@ -5,6 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.backendless.Backendless
+import com.backendless.BackendlessUser
+import com.backendless.async.callback.AsyncCallback
+import com.backendless.exceptions.BackendlessFault
 import com.mistershorr.loginandregistration.databinding.ActivityRegistrationBinding
 import java.util.*
 
@@ -49,6 +53,23 @@ class RegistrationActivity : AppCompatActivity() {
                 finish()
             }// closes the activity
         }
+    }
+
+    private fun registerUser() {
+        val user = BackendlessUser()
+        user.setProperty("email", "jamesbond@mi6.co.uk")
+        user.password = "iAmWatchingU"
+
+        Backendless.UserService.register(user, object: AsyncCallback<BackendlessUser?>) {
+
+            override fun handleResponse(registeredUser: BackendlessUser?){
+                //s
+            }
+
+            override fun handleFault(fault: BackendlessFault) {}
+
+        }
+
     }
 }
 
